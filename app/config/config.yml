@@ -88,8 +88,20 @@ fos_user:
 easy_admin:
     entities:
         # change the following to the namespaces of your own entities
-        - AppBundle\Entity\Plateforme
-        - AppBundle\Entity\Hote
-        - AppBundle\Entity\Integrateur
-        - AppBundle\Entity\User
-        - AppBundle\Entity\Transaction
+        Plateforme:
+            class: AppBundle\Entity\Plateforme
+        Hote:
+            class: AppBundle\Entity\Hote
+        Integrateur:
+            class: AppBundle\Entity\Integrateur
+        User:
+            class: AppBundle\Entity\User
+            disabled_actions: ['new']
+            form:
+                fields:
+                    - username
+                    - email
+                    - enabled
+                    - lastLogin
+        Transaction:
+            class: AppBundle\Entity\Transaction
