@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="section-title">
+            <h3 class="title">Erreur : La page est introuvable</h3>
+        </div>
+        <p>
+            La ressource demandée est introuvable. Vérifier l'URL ou <a href="{{ path('homepage') }}">retournez à l'accueil</a>.
+        </p>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="section-title">
+            <h3 class="title">Erreur : Accès restreint</h3>
+        </div>
+        <p>
+            Vous n'avez pas les privilèges suffisants pour accèder à la ressource. <a href="{{ path('homepage') }}">Retournez à l'accueil</a>.
+        </p>
+    </div>
+{% endblock %}
