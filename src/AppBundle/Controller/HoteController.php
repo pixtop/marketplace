@@ -27,6 +27,7 @@ class HoteController extends Controller
         $form = $this
                     ->createFormBuilder($hote)
                     ->add('coutDonneePerso', MoneyType::class, array(
+                        'label' => 'Prix de vente du jeu de données personnelles total',
                         'constraints' => array(new GreaterThanOrEqual(0))
                     ))
                     ->getForm();

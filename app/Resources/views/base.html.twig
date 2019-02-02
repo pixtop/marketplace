@@ -41,13 +41,17 @@
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                 <p class="text-uppercase">{{ app.user.username }}</p>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user-o"></i> Mes infos</a></li>
+                                    <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user-o"></i> Mes
+                                            infos</a></li>
                                     {% if app.user.vendeur %}
-                                        <li><a href="{{ path('produit_index') }}"><i class="fa fa-product-hunt"></i> Mes produits</a></li>
-                                    {% else %}
-                                        <li><a href="{{ path('preference') }}"><i class="fa fa-heart-o"></i> Mes préférences</a></li>
+                                        <li><a href="{{ path('produit_index') }}"><i class="fa fa-product-hunt"></i> Mes
+                                                produits</a></li>
+                                    {% elseif app.user.username not in ['plateforme','admin','hote','integrateur'] %}
+                                        <li><a href="{{ path('preference') }}"><i class="fa fa-heart-o"></i> Mes
+                                                préférences</a></li>
                                     {% endif %}
-                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-lock"></i>Déconnexion</a></li>
+                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-lock"></i>Déconnexion</a>
+                                    </li>
                                 </ul>
                             {% else %}
                                 <span>
@@ -55,20 +59,25 @@
                                     <a href="{{ path('fos_user_registration_register') }}" class="text-uppercase">Inscription</a>
                                 </span>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-unlock-alt"></i>Connexion</a></li>
-                                    <li><a href="{{ path('fos_user_registration_register') }}"><i class="fa fa-user-plus"></i> Créer un compte</a></li>
+                                    <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-unlock-alt"></i>Connexion</a>
+                                    </li>
+                                    <li><a href="{{ path('fos_user_registration_register') }}"><i
+                                                    class="fa fa-user-plus"></i> Créer un compte</a></li>
                                 </ul>
                             {% endif %}
                         </div>
                         <!-- /Account -->
 
                         <!-- Mobile nav toggle-->
-                        <li class="nav-toggle">
-                            <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
-                        </li>
+                        <ul>
+                            <li class="nav-toggle">
+                                <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
+                            </li>
+                        </ul>
                         <!-- / Mobile nav toggle -->
                     </div>
                 </div>
+            </div>
         </div>
         <!-- header -->
     </div>
@@ -83,8 +92,10 @@
         <div id="responsive-nav">
             <!-- category nav -->
             <div class="category-nav">
-                <span class="category-header" data-toggle="collapse" data-target="#categorie">Categories <i class="fa fa-list"></i></span>
-                <div {% if  app.request.attributes.get('_route')  != 'homepage' %}class="collapse" id="categorie" {% endif %}>
+                <span class="category-header" data-toggle="collapse" data-target="#categorie">Categories <i
+                            class="fa fa-list"></i></span>
+                <div {% if  app.request.attributes.get('_route')  != 'homepage' %}class="collapse"
+                     id="categorie" {% endif %}>
                     <ul class="category-list">
                         <li><a href="{{ path('categorie',{'categorie':'ordinateur'}) }}">Ordinateurs</a></li>
                         <li><a href="{{ path('categorie',{'categorie':'livre'}) }}">Livres</a></li>
@@ -141,7 +152,7 @@
                             <li><a href="{{ path('fos_user_profile_show') }}">Mes infos</a></li>
                             {% if app.user.vendeur %}
                                 <li><a href="{{ path('produit_index') }}">Mes produits</a></li>
-                            {% else %}
+                            {% elseif app.user.username not in ['plateforme','admin','hote','integrateur'] %}
                                 <li><a href="{{ path('preference') }}">Mes préférences</a></li>
                             {% endif %}
                         {% else %}
@@ -183,11 +194,11 @@
         <hr>
         <!-- row -->
         <div class="row justify-content-center">
-                <!-- footer copyright -->
-                <div class="footer-copyright">
-                    Website créé par <a href="#">Jean-Baptiste PAUX</a>
-                </div>
-                <!-- /footer copyright -->
+            <!-- footer copyright -->
+            <div class="footer-copyright">
+                Website créé par <a href="#">Jean-Baptiste PAUX</a>
+            </div>
+            <!-- /footer copyright -->
         </div>
         <!-- /row -->
     </div>

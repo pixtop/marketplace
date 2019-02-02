@@ -58,7 +58,13 @@ class PlateformeType extends AbstractType
                         'Trie par avis décroissant' => 2,
                     ),
                 ))
-                ->add('infoHote');
+                ->add('infoHote', ChoiceType::class, array(
+                    'label' => 'Achat des données personnelles',
+                    'choices' => array(
+                        'Non' => false,
+                        'Oui' => true,
+                    ),
+                ));
         }
     }
 }
