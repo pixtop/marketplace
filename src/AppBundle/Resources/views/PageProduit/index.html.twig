@@ -1,0 +1,105 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <!-- section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="product product-details row">
+                <!--  Product Details -->
+                <div class="col">
+                    <div id="product-main-view">
+                        <div class="product-view">
+                            <img src="{{ asset('img') }}/{{ produit.categorie }}/{{ produit.nImage }}.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="product-body">
+                        <h2 class="product-name">{{ produit.nom }}</h2>
+                        <h3 class="product-price">{{ (produit.prix * (1+plateforme.commissionAcheteur))|number_format('2','.',' ') }}
+                            €</h3>
+                        <div>
+                            <div class="product-rating">
+                                {% for i in 1..produit.note if produit.note != 0 %}
+                                    <i class="fa fa-star"></i>
+                                {% endfor %}
+                                {% for i in 1..5-produit.note if produit.note != 5 %}
+                                    <i class="fa fa-star-o empty"></i>
+                                {% endfor %}
+                            </div>
+                            <a href="#tab2">{{ nb_avis }} Avis / Ajout un avis</a>
+                        </div>
+                        <p><strong>Disponibilité
+                                :</strong> {% if produit.quantite == 0 %}Indisponible{% else %}En Stock ({{ produit.quantite }}){% endif %}
+                        </p>
+                        <p><strong>Marque :</strong> {{ produit.vendeur.username|upper }}</p>
+                        <div class="product-options">
+                            <div class="product-btns">
+                                <div class="qty-input">
+                                    {{ form_start(form, {'attr': {'class': 'fos_user'}}) }}
+                                    {{ form_widget(form) }}
+                                </div>
+                                <button class="primary-btn add-to-cart" type="submit"><i
+                                            class="fa fa-shopping-cart"></i> Acheter
+                                </button>
+                                {{ form_end(form) }}
+                            </div>
+                            {% if produit.nbIntegrateur != 0 and integrateur.actif %}<p>Le service {{ integrateur.nom }}
+                                est inclus</p>
+                            {% else %}
+                                <p>Aucun service n'est inclus avec le produit</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Product Details -->
+            <div class="product-tab">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link {{ tab ?: 'active show' }}" data-toggle="tab"
+                                            href="#tab1" style="background-color: transparent">Description</a></li>
+                    <li class="nav-item"><a class="nav-link {{ tab ? 'active show' }}" data-toggle="tab"
+                                            href="#tab2" style="background-color: transparent">Avis ({{ nb_avis }})</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab1" class="tab-pane fade {{ tab ?: 'active show' }}">
+                        <p>{{ produit.description }}</p>
+                    </div>
+                    <div id="tab2" class="tab-pane fade {{ tab ? 'active show' }}">
+                        <div class="product-reviews">
+                            {% if avis|length == 0 %}
+                                <div class="review-body">
+                                    <p>Il n'y a pas encore d'avis sur ce produit.</p>
+                                </div>
+                            {% endif %}
+                            {% for a in avis %}
+                                <div class="single-review">
+                                    <div class="review-heading">
+                                        <div><a href=""><i class="fa fa-user-o"></i> {{ a.auteur }}</a></div>
+                                        <div class="review-rating pull-right">
+                                            {% for i in 1..a.note %}
+                                                <i class="fa fa-star"></i>
+                                            {% endfor %}
+                                            {% for i in 1..5-a.note if a.note != 5 %}
+                                                <i class="fa fa-star-o empty"></i>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="review-body">
+                                        <p>{{ a.commentaire }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            {{ knp_pagination_render(avis) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /section -->
+{% endblock %}

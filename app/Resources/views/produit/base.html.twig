@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let changeImage = function () {
+            let categorie = $( '#appbundle_produit_categorie option:selected' ).attr("value");
+            let image = $( '#appbundle_produit_nImage option:selected' ).attr("value");
+            $('#preview-img').attr("src","{{ asset('img') }}/"+categorie+"/"+image+".jpg");
+        };
+        $(changeImage());
+        $('select').change(function () {
+            let categorie = $( '#appbundle_produit_categorie option:selected' ).attr("value");
+            let image = $( '#appbundle_produit_nImage option:selected' ).attr("value");
+            $('#preview-img').attr("src","{{ asset('img') }}/"+categorie+"/"+image+".jpg");
+        });
+    </script>
+{% endblock %}

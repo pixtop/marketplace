@@ -1,0 +1,44 @@
+{% extends 'produit/base.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block money_widget %}
+    <div>
+        {{ money_pattern|form_encode_currency(block('form_widget_simple')) }}
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="section-title">
+                <h3 class="title">Nouveau Produit</h3>
+            </div>
+            {{ form_start(form, {attr : {"class" : "fos_user"}}) }}
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.nom) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.quantite) }}
+                    {{ form_row(form.prix) }}
+                    {{ form_row(form.cout) }}
+                    {% if integrateur.actif %}
+                        {{ form_row(form.integrateur) }}
+                        <div>
+                            <p>Le service supplémentaire : {{ integrateur.nom }} est disponible.</p>
+                            <p>Coût à l'unité : {{ integrateur.prix|format(2,"."," ") }}€</p>
+                        </div>
+                    {% endif %}
+                    <button class="primary-btn" type="submit">Créer</button>
+                    <a href="{{ path('produit_index') }}">Retour à la liste</a>
+                </div>
+                <div class="col">
+                    {{ form_row(form.categorie) }}
+                    {{ form_row(form.nImage) }}
+                    <img class="thumbnail" id="preview-img" src="" alt="">
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

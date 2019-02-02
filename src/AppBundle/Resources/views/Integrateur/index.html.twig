@@ -1,0 +1,21 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Integrateur{% endblock %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="section-title">
+                <h3 class="title"> Service integrateur</h3>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ form_start(form, {attr:{'class':'fos_user'}}) }}
+                    {{ form_widget(form, {attr:{'style':'max-width: 340px'}}) }}
+                    <button class="primary-btn" type="submit">Changer</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

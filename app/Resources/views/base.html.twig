@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Marketplace{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/nouislider.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <!-- header -->
+    <div id="header">
+        <div class="container">
+            <div class="row">
+                <!-- Logo -->
+                <div class="col header-logo">
+                    <a class="logo" href="{{ path('homepage') }}">
+                        <img src="{{ asset('img/logo.png') }}" alt="">
+                    </a>
+                </div>
+                <!-- /Logo -->
+                <div class="col">
+                    <div class="header-btns float-right">
+                        <!-- Account -->
+                        <div class="header-account dropdown">
+                            <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon">
+                                    <i class="fa fa-user-o"></i>
+                                </div>
+                                <strong class="text-uppercase">Mon Compte</strong>
+                            </div>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <p class="text-uppercase">{{ app.user.username }}</p>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user-o"></i> Mes infos</a></li>
+                                    {% if app.user.vendeur %}
+                                        <li><a href="{{ path('produit_index') }}"><i class="fa fa-product-hunt"></i> Mes produits</a></li>
+                                    {% else %}
+                                        <li><a href="{{ path('preference') }}"><i class="fa fa-heart-o"></i> Mes préférences</a></li>
+                                    {% endif %}
+                                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-lock"></i>Déconnexion</a></li>
+                                </ul>
+                            {% else %}
+                                <span>
+                                    <a href="{{ path('fos_user_security_login') }}" class="text-uppercase">Connexion</a> /
+                                    <a href="{{ path('fos_user_registration_register') }}" class="text-uppercase">Inscription</a>
+                                </span>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-unlock-alt"></i>Connexion</a></li>
+                                    <li><a href="{{ path('fos_user_registration_register') }}"><i class="fa fa-user-plus"></i> Créer un compte</a></li>
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <!-- /Account -->
+
+                        <!-- Mobile nav toggle-->
+                        <li class="nav-toggle">
+                            <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
+                        </li>
+                        <!-- / Mobile nav toggle -->
+                    </div>
+                </div>
+        </div>
+        <!-- header -->
+    </div>
+    <!-- container -->
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<div id="navigation">
+    <!-- container -->
+    <div class="container">
+        <div id="responsive-nav">
+            <!-- category nav -->
+            <div class="category-nav">
+                <span class="category-header" data-toggle="collapse" data-target="#categorie">Categories <i class="fa fa-list"></i></span>
+                <div {% if  app.request.attributes.get('_route')  != 'homepage' %}class="collapse" id="categorie" {% endif %}>
+                    <ul class="category-list">
+                        <li><a href="{{ path('categorie',{'categorie':'ordinateur'}) }}">Ordinateurs</a></li>
+                        <li><a href="{{ path('categorie',{'categorie':'livre'}) }}">Livres</a></li>
+                        <li><a href="{{ path('categorie',{'categorie':'quotidien'}) }}">Vie quotidienne</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /category nav -->
+
+            <!-- menu nav -->
+            <div class="menu-nav">
+                <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+                <ul class="menu-list">
+                    <li class="nav-item"><a href="{{ path('homepage') }}">Accueil</a></li>
+                </ul>
+            </div>
+            <!-- menu nav -->
+        </div>
+    </div>
+    <!-- /container -->
+</div>
+<!-- /NAVIGATION -->
+
+
+{% block body %}{% endblock %}
+
+<!-- FOOTER -->
+<footer id="footer" class="section section-grey">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- footer widget -->
+            <div class="col">
+                <div class="footer">
+                    <!-- footer logo -->
+                    <div class="footer-logo">
+                        <a class="logo" href="{{ path('homepage') }}">
+                            <img src="{{ asset('img/logo.png') }}" alt="">
+                        </a>
+                    </div>
+                    <!-- /footer logo -->
+                    <p>Plateforme e-commerce développée pour les travaux de recherche de Madame Amélie ABADIE</p>
+                </div>
+            </div>
+            <!-- /footer widget -->
+
+            <!-- footer widget -->
+            <div class="col">
+                <div class="footer">
+                    <h3 class="footer-header">Mon Compte</h3>
+                    <ul class="list-links">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li><a href="{{ path('fos_user_profile_show') }}">Mes infos</a></li>
+                            {% if app.user.vendeur %}
+                                <li><a href="{{ path('produit_index') }}">Mes produits</a></li>
+                            {% else %}
+                                <li><a href="{{ path('preference') }}">Mes préférences</a></li>
+                            {% endif %}
+                        {% else %}
+                            <li><a href="{{ path('fos_user_security_login') }}">Mes infos</a></li>
+                            <li><a href="{{ path('fos_user_security_login') }}">Mes préférences</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <!-- /footer widget -->
+
+            <!-- footer widget -->
+            <div class="col">
+                <div class="footer">
+                    <h3 class="footer-header">PLATEFORME</h3>
+                    <ul class="list-links">
+                        <li><a href="#">A propos</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /footer widget -->
+
+            <!-- footer widget -->
+            <div class="col">
+                <div class="footer">
+                    <h3 class="footer-header">ACTEURS TIERS</h3>
+                    <ul class="list-links">
+                        <li><a href="{{ path('integrateur') }}">Intégrateur</a></li>
+                        <li><a href="{{ path('hote') }}">Hôte</a></li>
+                        <li><a href="{{ path('plateforme') }}">Plateforme</a></li>
+                        <li><a href="{{ path('admin_page') }}">Administration</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /footer widget -->
+        </div>
+        <!-- /row -->
+        <hr>
+        <!-- row -->
+        <div class="row justify-content-center">
+                <!-- footer copyright -->
+                <div class="footer-copyright">
+                    Website créé par <a href="#">Jean-Baptiste PAUX</a>
+                </div>
+                <!-- /footer copyright -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</footer>
+<!-- /FOOTER -->
+
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/popper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/slick.min.js') }}"></script>
+<script src="{{ asset('js/nouislider.min.js') }}"></script>
+<script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

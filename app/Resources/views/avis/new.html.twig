@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="section-title">
+                <h3 class="title"> Merci pour votre achat !</h3>
+            </div>
+            <p>Prenez le temps d'évaluer le produit.</p>
+
+            {{ form_start(form, {'attr' : {'class':'review-form'}}) }}
+            <div class="input-rating">
+                {{ form_label(form.note) }}
+                {{ form_errors(form.note) }}
+                {{ form_widget(form.note) }}
+            </div>
+            {{ form_row(form.commentaire) }}
+            <button class="primary-btn" type="submit">Envoyez</button>
+            <a href="{{ path('homepage') }}">Retour au shopping</a>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

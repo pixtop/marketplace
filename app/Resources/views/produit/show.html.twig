@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="section-title">
+                <h3 class="title">Information</h3>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p><strong>Nom : </strong>{{ produit.nom }}</p>
+                    <p><strong>Description : </strong>{{ produit.description }}</p>
+                    <p><strong>Prix : </strong>{{ produit.prix|format(2,"."," ") }}€</p>
+                    <p><strong>Quantité restante : </strong>{{ produit.quantite }}</p>
+                    <p><strong>Catégorie : </strong>{{ produit.categorie|capitalize }}</p>
+                    <p><strong>Intégrateur restant : </strong>{{ produit.nbIntegrateur }}</p>
+                </div>
+                <div class="col">
+                    <ul>
+                        <li style="margin-bottom: 5rem">
+                            {{ form_start(delete_form) }}
+                            <input class="primary-btn" type="submit" value="Supprimer">
+                            {{ form_end(delete_form) }}
+                        </li>
+                        <li>
+                            <a class="primary-btn" href="{{ path('produit_edit', { 'id': produit.id }) }}">Modifier</a>
+                            <a href="{{ path('produit_index') }}"> Retour à la liste</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

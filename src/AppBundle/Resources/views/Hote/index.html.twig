@@ -1,0 +1,54 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Hote{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="section-title">
+                <h3 class="title">Gestion Hote</h3>
+            </div>
+
+            <table id="table" class="display">
+                <thead>
+                <tr>
+                    <th>Nom de l'acheteur</th>
+                    <th>Description</th>
+                    <th>Prix Ordinateur</th>
+                    <th>Prix Livre</th>
+                    <th>Prix Objet courant</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for info in infos %}
+                    <tr>
+                        <td>{{ info.utilisateur }}</td>
+                        <td>{{ info.descriptionProjet }}</td>
+                        <td>{{ info.budgetOrdinateur|number_format('2','.',' ') }} €</td>
+                        <td>{{ info.budgetLivre|number_format('2','.',' ') }} €</td>
+                        <td>{{ info.budgetObjetCourant|number_format('2','.',' ') }} €</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {{ form_start(form, {attr:{'class':'fos_user', 'style':'max-width: 40%'}}) }}
+            {{ form_widget(form) }}
+            <button class="primary-btn" type="submit">Changer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready( function () {
+            $('#table').DataTable();
+        } );
+    </script>
+{% endblock %}

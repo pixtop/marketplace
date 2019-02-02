@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="section-title">
+                <h3 class="title">Liste des produits</h3>
+            </div>
+
+            <table id="table" class="display">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Prix</th>
+                    <th>Quantite</th>
+                    <th>Categorie</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for produit in produits %}
+                    <tr>
+                        <td>{{ produit.nom }}</td>
+                        <td>{{ produit.description }}</td>
+                        <td>{{ produit.prix|number_format('2','.',' ') }}€</td>
+                        <td>{{ produit.quantite }}</td>
+                        <td>{{ produit.categorie|capitalize }}</td>
+                        <td>
+                            <a class="primary-btn" href="{{ path('produit_show', { 'id': produit.id }) }}"><i class="fa fa-eye"></i></a>
+                            <a class="primary-btn" href="{{ path('produit_edit', { 'id': produit.id }) }}"><i class="fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <ul>
+                <li>
+                    <a class="primary-btn" href="{{ path('produit_new') }}">Nouveau produit</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready( function () {
+            $('#table').DataTable();
+        } );
+    </script>
+{% endblock %}

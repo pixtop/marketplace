@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="section-title">
+                <h3 class="title">Mes préférences</h3>
+            </div>
+            {{ form_start(form, {attr:{'class':'fos_user', 'style':'max-width: 40%'}}) }}
+            {{ form_widget(form) }}
+            <button class="primary-btn" type="submit">Enregistrer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

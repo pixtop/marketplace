@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+
+                <!-- MAIN -->
+                <div id="main" class="col-md-12">
+                    <!-- store top filter -->
+                    {{ knp_pagination_render(produits) }}
+                    <!-- /store top filter -->
+
+                    <!-- STORE -->
+                    <div id="store">
+                        <!-- row -->
+                        <div class="row">
+                            <!-- Product Single -->
+                            {% if produits|length == 0 %}
+                                <h3>Aucun produit dans cette catégorie</h3>
+                            {% endif %}
+                            {% for produit in produits %}
+                                <div class="col-md-4 col-sm-6 col-xs-6">
+                                    <div class="product product-single">
+                                        <a href="{{ path('page_produit',{'id':produit.id}) }}">
+                                        <div class="product-thumb">
+                                            <img src="{{ asset('img') }}/{{ produit.categorie }}/{{ produit.nImage }}.jpg" alt="">
+                                        </div>
+                                        </a>
+                                        <div class="product-body">
+                                            <h3 class="product-price">{{ (produit.prix * (1+plateforme.commissionAcheteur))|number_format('2','.',' ') }} €</h3>
+                                            <div class="product-rating">
+                                                {% for i in 1..produit.note if produit.note != 0%}
+                                                <i class="fa fa-star"></i>
+                                                {% endfor %}
+                                                {% for i in 1..5-produit.note if produit.note != 5%}
+                                                <i class="fa fa-star-o empty"></i>
+                                                {% endfor %}
+                                            </div>
+                                            <h2 class="product-name"><a href="{{ path('page_produit',{'id':produit.id}) }}">{{ produit.nom }}</a></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!-- /row -->
+                    </div>
+                    <!-- /STORE -->
+
+                    <!-- store bottom filter -->
+                    {{ knp_pagination_render(produits) }}
+                    <!-- /store bottom filter -->
+                </div>
+                <!-- /MAIN -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /section -->
+{% endblock %}

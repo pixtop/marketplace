@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="section-title">
+                <h3 class="title">Profil</h3>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p><strong>Nom : </strong>{{ user.username }}</p>
+                    <p><strong>Email : </strong>{{ user.email }}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Solde : </strong>{{ user.solde|number_format('2','.',' ') }} €</p>
+                    <a class="primary-btn" href="{{ path('fos_user_change_password') }}">Changer mot de passe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="section-title">
+                        <h3 class="title">Inscription</h3>
+                    </div>
+                    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user'}}) }}
+                    {{ form_widget(form) }}
+                    <div>
+                        <button class="primary-btn" type="submit">{{ 'registration.submit'|trans }}</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="section-title">
+                        <h3 class="title">Information Plateforme</h3>
+                    </div>
+                    <div>
+                        <p>Frais d'inscription d'un acheteur :</p>
+                        <p id="commission"><strong>{{ plateforme_service.getPlateforme().inscriptionAcheteur|number_format('2','.',' ') }}€</strong></p>
+                        <p>Commission sur le prix des produits :</p>
+                        <p id="commission"><strong>{{ plateforme_service.getPlateforme().commissionAcheteur * 100 }}%</strong></p>
+                    </div>
+                    <div>
+                        <p>Frais d'inscription d'un vendeur :</p>
+                        <p id="commission"><strong>{{ plateforme_service.getPlateforme().inscriptionVendeur|number_format('2','.',' ') }}€</strong></p>
+                        <p>Commission sur la vente des produits :</p>
+                        <p id="commission"><strong>{{ plateforme_service.getPlateforme().commissionVendeur * 100 }}%</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}
+{% endblock %}
